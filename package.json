@@ -2,7 +2,7 @@
   "name": "iamfns",
   "module": "index.ts",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "scripts": {
     "start": "bun run dist/index.js",
