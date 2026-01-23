@@ -18,6 +18,7 @@ bun add iamfns
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
+  - [genIntId](#genintid)
   - [pFloat](#pfloat)
   - [roundDecimals](#rounddecimals)
 - [Arrays](#arrays)
@@ -258,6 +259,28 @@ divide(0.3, 0.1);    // => 3
 divide(0.12, 0.1);   // => 1.2
 divide(1, 0.5);      // => 2
 divide(10.123, 10);  // => 1.012
+```
+
+---
+
+### `genIntId`
+
+Generates a random integer ID between 0 and 999,999.
+
+```typescript
+function genIntId(): number
+```
+
+**Returns:** A random integer from 0 to 999,999
+
+**Example:**
+
+```typescript
+import { genIntId } from 'iamfns';
+
+genIntId(); // => 482957
+genIntId(); // => 139482
+genIntId(); // => 7234
 ```
 
 ---
