@@ -15,6 +15,7 @@ bun add iamfns
   - [afterDecimals](#afterdecimals)
   - [adjust](#adjust)
   - [add](#add)
+  - [calcPercent](#calcpercent)
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
@@ -180,6 +181,46 @@ add(0.1, 0.2);   // => 0.3
 add(0.01, 0.02); // => 0.03
 add(0.3, 0.6);   // => 0.9
 add(1, 0.001);   // => 1.001
+```
+
+---
+
+### `calcPercent`
+
+Calculates the percentage change between two values.
+
+```typescript
+function calcPercent({ now, start }: { now: number; start: number }): number
+```
+
+**Parameters:**
+- `now` - The current value
+- `start` - The starting/reference value
+
+**Returns:** The percentage change (positive for increase, negative for decrease)
+
+**Example:**
+
+```typescript
+import { calcPercent } from 'iamfns';
+
+// Positive change (50% increase)
+calcPercent({ now: 150, start: 100 }); // => 50
+
+// Negative change (50% decrease)
+calcPercent({ now: 50, start: 100 });  // => -50
+
+// No change
+calcPercent({ now: 100, start: 100 }); // => 0
+
+// Both zero
+calcPercent({ now: 0, start: 0 });     // => 0
+
+// Division by zero (start is 0)
+calcPercent({ now: 100, start: 0 });   // => Infinity
+
+// Decimal values
+calcPercent({ now: 1.5, start: 1 });   // => 50
 ```
 
 ---
