@@ -18,6 +18,7 @@ bun add iamfns
   - [multiply](#multiply)
   - [divide](#divide)
   - [pFloat](#pfloat)
+  - [roundDecimals](#rounddecimals)
 - [Arrays](#arrays)
   - [chunk](#chunk)
   - [orderBy](#orderby)
@@ -255,6 +256,49 @@ pFloat('');        // => NaN
 // Scientific notation
 pFloat('1e6');   // => 1000000
 pFloat('2.5e3'); // => 2500
+```
+
+---
+
+### `roundDecimals`
+
+Rounds a number to a specified number of decimal places.
+
+```typescript
+function roundDecimals(num: number, decimals: number): number
+```
+
+**Parameters:**
+- `num` - The number to round
+- `decimals` - The number of decimal places
+
+**Returns:** The rounded number
+
+**Example:**
+
+```typescript
+import { roundDecimals } from 'iamfns';
+
+// Round to integer
+roundDecimals(3.14, 0);  // => 3
+roundDecimals(3.5, 0);   // => 4
+
+// Round to 1 decimal
+roundDecimals(3.14, 1);  // => 3.1
+roundDecimals(3.15, 1);  // => 3.2
+
+// Round to 2 decimals
+roundDecimals(3.14159, 2); // => 3.14
+roundDecimals(3.145, 2);   // => 3.15
+
+// Round to many decimals
+roundDecimals(3.14159265359, 4); // => 3.1416
+
+// Handles floating point issues
+roundDecimals(0.1 + 0.2, 1); // => 0.3
+
+// Negative numbers
+roundDecimals(-3.14, 1); // => -3.1
 ```
 
 ---
