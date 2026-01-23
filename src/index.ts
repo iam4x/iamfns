@@ -1,3 +1,4 @@
+export { abbreviateNumber } from "./abbreviate-number";
 export { afterDecimals } from "./after-decimals";
 export { chunk } from "./chunk";
 export { getKV } from "./get-kv";

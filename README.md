@@ -11,6 +11,7 @@ bun add iamfns
 ## Table of Contents
 
 - [Numbers](#numbers)
+  - [abbreviateNumber](#abbreviatenumber)
   - [afterDecimals](#afterdecimals)
   - [adjust](#adjust)
   - [add](#add)
@@ -36,6 +37,51 @@ bun add iamfns
 ---
 
 ## Numbers
+
+### `abbreviateNumber`
+
+Formats large numbers with K, M, B, T suffixes for better readability.
+
+```typescript
+function abbreviateNumber(n: number): number | string
+```
+
+**Parameters:**
+- `n` - The number to abbreviate
+
+**Returns:** The original number if < 1000, otherwise a string with suffix (K, M, B, T)
+
+**Example:**
+
+```typescript
+import { abbreviateNumber } from 'iamfns';
+
+// Numbers < 1000 return as-is
+abbreviateNumber(500);  // => 500
+abbreviateNumber(999);  // => 999
+
+// Thousands (K)
+abbreviateNumber(1000);   // => '1K'
+abbreviateNumber(1500);   // => '1.5K'
+abbreviateNumber(50000);  // => '50K'
+
+// Millions (M)
+abbreviateNumber(1000000);  // => '1M'
+abbreviateNumber(1500000);  // => '1.5M'
+
+// Billions (B)
+abbreviateNumber(1000000000);  // => '1B'
+abbreviateNumber(1500000000);  // => '1.5B'
+
+// Trillions (T)
+abbreviateNumber(1000000000000);  // => '1T'
+
+// Negative numbers
+abbreviateNumber(-1500);    // => '-1.5K'
+abbreviateNumber(-1000000); // => '-1M'
+```
+
+---
 
 ### `afterDecimals`
 
