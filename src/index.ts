@@ -4,6 +4,7 @@ export { chunk } from "./chunk";
 export { genIntId } from "./gen-int-id";
 export { getKV } from "./get-kv";
 export { inverseObj } from "./inverse-obj";
+export { last } from "./last";
 export { objDelta } from "./obj-delta";
 export { omitBy } from "./omit-by";
 export { omitUndefined } from "./omit-undefined";

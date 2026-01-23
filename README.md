@@ -23,6 +23,7 @@ bun add iamfns
   - [roundDecimals](#rounddecimals)
 - [Arrays](#arrays)
   - [chunk](#chunk)
+  - [last](#last)
   - [orderBy](#orderby)
   - [take](#take)
   - [takeRight](#takeright)
@@ -401,6 +402,32 @@ chunk(['a', 'b', 'c', 'd'], 3);
 
 chunk([1, 2, 3, 4, 5, 6], 2);
 // => [[1, 2], [3, 4], [5, 6]]
+```
+
+---
+
+### `last`
+
+Returns the last element of an array.
+
+```typescript
+function last<T>(array: T[]): T | undefined
+```
+
+**Parameters:**
+- `array` - The source array
+
+**Returns:** The last element, or `undefined` if the array is empty
+
+**Example:**
+
+```typescript
+import { last } from 'iamfns';
+
+last([1, 2, 3]);       // => 3
+last(['a', 'b', 'c']); // => 'c'
+last([42]);            // => 42
+last([]);              // => undefined
 ```
 
 ---
