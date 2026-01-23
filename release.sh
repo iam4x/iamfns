@@ -42,12 +42,7 @@ echo -e "${YELLOW}Running tests...${NC}"
 bun test
 echo -e "${GREEN}Tests passed!${NC}"
 
-# Step 3: Build the project
-echo -e "${YELLOW}Building project...${NC}"
-bun run build
-echo -e "${GREEN}Build completed!${NC}"
-
-# Step 4: Bump version
+# Step 3: Bump version
 echo -e "${YELLOW}Bumping $VERSION_TYPE version...${NC}"
 
 # Get current version from package.json
@@ -81,6 +76,11 @@ const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 pkg.version = '$NEW_VERSION';
 fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
 "
+
+# Step 4: Build the project
+echo -e "${YELLOW}Building project...${NC}"
+bun run build
+echo -e "${GREEN}Build completed!${NC}"
 
 # Step 5: Commit new version
 echo -e "${YELLOW}Committing version bump...${NC}"
