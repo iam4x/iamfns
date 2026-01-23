@@ -13,6 +13,7 @@ bun add iamfns
 - [Numbers](#numbers)
   - [afterDecimals](#afterdecimals)
 - [Arrays](#arrays)
+  - [chunk](#chunk)
   - [orderBy](#orderby)
   - [take](#take)
   - [takeRight](#takeright)
@@ -64,6 +65,37 @@ afterDecimals(1.23e-7); // => 7
 ---
 
 ## Arrays
+
+### `chunk`
+
+Splits an array into chunks of a specified size.
+
+```typescript
+function chunk<T>(arr: T[], size: number): T[][]
+```
+
+**Parameters:**
+- `arr` - The array to split
+- `size` - The size of each chunk
+
+**Returns:** A new array of chunks
+
+**Example:**
+
+```typescript
+import { chunk } from 'iamfns';
+
+chunk([1, 2, 3, 4, 5], 2);
+// => [[1, 2], [3, 4], [5]]
+
+chunk(['a', 'b', 'c', 'd'], 3);
+// => [['a', 'b', 'c'], ['d']]
+
+chunk([1, 2, 3, 4, 5, 6], 2);
+// => [[1, 2], [3, 4], [5, 6]]
+```
+
+---
 
 ### `orderBy`
 
