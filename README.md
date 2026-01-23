@@ -41,6 +41,8 @@ bun add iamfns
 - [Strings](#strings)
   - [stringify](#stringify)
   - [parse](#parse)
+- [Async](#async)
+  - [sleep](#sleep)
 
 ---
 
@@ -994,6 +996,51 @@ parse('active&verified&role=admin');
 // Decodes special characters
 parse('q=hello%20world');
 // => { q: 'hello world' }
+```
+
+---
+
+## Async
+
+### `sleep`
+
+Returns a promise that resolves after the specified number of milliseconds. Useful for adding delays in async functions.
+
+```typescript
+function sleep(ms: number): Promise<void>
+```
+
+**Parameters:**
+- `ms` - The number of milliseconds to wait
+
+**Returns:** A promise that resolves after the delay
+
+**Example:**
+
+```typescript
+import { sleep } from 'iamfns';
+
+// Wait 1 second
+await sleep(1000);
+
+// Use in async function
+async function fetchWithRetry(url: string, retries = 3) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fetch(url);
+    } catch (error) {
+      if (i < retries - 1) {
+        await sleep(1000 * (i + 1)); // Exponential backoff
+      }
+    }
+  }
+}
+
+// Delay between operations
+for (const item of items) {
+  await processItem(item);
+  await sleep(100); // Rate limiting
+}
 ```
 
 ---
