@@ -21,6 +21,7 @@ bun add iamfns
   - [getKV](#getkv)
   - [inverseObj](#inverseobj)
   - [objDelta](#objdelta)
+  - [omitBy](#omitby)
   - [omitUndefined](#omitundefined)
 - [JSON](#json)
   - [tryParse](#tryparse)
@@ -335,6 +336,49 @@ objDelta({ a: 1, b: 2 }, { a: 10, b: 2, c: 30 });
 // Excludes undefined values from delta
 objDelta({ a: 1, b: 2, c: 3 }, { a: 1, b: undefined, c: 4 });
 // => { c: 4 }
+```
+
+---
+
+### `omitBy`
+
+Filters an object's entries based on a predicate function. Keeps only the entries where the filter returns `true`.
+
+```typescript
+function omitBy<T extends Record<string, any>>(
+  obj: T,
+  filter: (key: keyof T, value: T[keyof T]) => boolean
+): T
+```
+
+**Parameters:**
+- `obj` - The source object
+- `filter` - A predicate function that receives the key and value, returns `true` to keep the entry
+
+**Returns:** A new object with only the entries that match the filter
+
+**Example:**
+
+```typescript
+import { omitBy } from 'iamfns';
+
+// Keep only entries with value greater than 1
+omitBy({ a: 1, b: 2, c: 3 }, (_key, value) => value > 1);
+// => { b: 2, c: 3 }
+
+// Keep only entries with specific keys
+omitBy({ a: 1, b: 2, c: 3 }, (key) => key !== 'b');
+// => { a: 1, c: 3 }
+
+// Keep only truthy values
+omitBy({ a: 0, b: '', c: 'hello', d: 42 }, (_key, value) => Boolean(value));
+// => { c: 'hello', d: 42 }
+
+// Filter by both key and value
+omitBy({ name: 'John', age: 30, active: true }, (key, value) =>
+  typeof value === 'string' || key === 'active'
+);
+// => { name: 'John', active: true }
 ```
 
 ---
