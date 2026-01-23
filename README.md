@@ -18,6 +18,7 @@ bun add iamfns
   - [take](#take)
   - [takeRight](#takeright)
 - [Objects](#objects)
+  - [getKV](#getkv)
   - [inverseObj](#inverseobj)
   - [omitUndefined](#omitundefined)
 - [JSON](#json)
@@ -215,6 +216,52 @@ takeRight(['a', 'b', 'c'], 2);
 ---
 
 ## Objects
+
+### `getKV`
+
+Gets a value from an object by key with automatic case conversion. Tries the exact key first, then `snake_case`, then `camelCase` versions.
+
+```typescript
+function getKV(obj: Record<string, any> | undefined, key: string): any
+```
+
+**Parameters:**
+- `obj` - The source object (or `undefined`)
+- `key` - The key to look up
+
+**Returns:** The value if found, otherwise `undefined`
+
+**Example:**
+
+```typescript
+import { getKV } from 'iamfns';
+
+// Direct key match
+getKV({ testKey: 'value' }, 'testKey');
+// => 'value'
+
+// camelCase key finds snake_case property
+getKV({ test_key: 'value' }, 'testKey');
+// => 'value'
+
+// snake_case key finds camelCase property
+getKV({ testKey: 'value' }, 'test_key');
+// => 'value'
+
+// Complex key conversion
+getKV({ my_complex_key_name: 'value' }, 'myComplexKeyName');
+// => 'value'
+
+// Handles undefined objects
+getKV(undefined, 'testKey');
+// => undefined
+
+// Returns undefined when key not found
+getKV({ otherKey: 'value' }, 'testKey');
+// => undefined
+```
+
+---
 
 ### `inverseObj`
 

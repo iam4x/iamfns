@@ -1,5 +1,6 @@
 export { afterDecimals } from "./after-decimals";
 export { chunk } from "./chunk";
+export { getKV } from "./get-kv";
 export { inverseObj } from "./inverse-obj";
 export { omitUndefined } from "./omit-undefined";
 export { orderBy } from "./order-by";
