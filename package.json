@@ -1,0 +1,36 @@
+{
+  "name": "iamfns",
+  "module": "index.ts",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "start": "bun run dist/index.js",
+    "build": "bunup --dts.infer-types --dts.tsgo",
+    "test": "bun test",
+    "dev": "bun run --watch src/index.ts",
+    "lint": "bun run lint:eslint && bun run lint:tsc",
+    "lint:eslint": "eslint src",
+    "lint:tsc": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/bun": "latest",
+    "@typescript-eslint/parser": "^8.53.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260122.4",
+    "bunup": "^0.16.20",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-import-resolver-typescript": "4.3.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "tsc-alias": "^1.8.16",
+    "typescript-eslint": "^8.53.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
