@@ -20,6 +20,7 @@ bun add iamfns
 - [Objects](#objects)
   - [getKV](#getkv)
   - [inverseObj](#inverseobj)
+  - [objDelta](#objdelta)
   - [omitUndefined](#omitundefined)
 - [JSON](#json)
   - [tryParse](#tryparse)
@@ -292,6 +293,48 @@ inverseObj({ one: 1, two: 2, three: 3 });
 // Note: duplicate values will be overwritten
 inverseObj({ a: 'x', b: 'x', c: 'y' });
 // => { x: 'b', y: 'c' }
+```
+
+---
+
+### `objDelta`
+
+Returns the changed properties between two objects. Only includes keys that exist in the first object and have different values in the second object.
+
+```typescript
+function objDelta<T extends Record<string, any>>(obj1: T, obj2: T): Partial<T>
+```
+
+**Parameters:**
+- `obj1` - The original object (defines which keys to compare)
+- `obj2` - The updated object (source of new values)
+
+**Returns:** An object containing only the properties that changed
+
+**Example:**
+
+```typescript
+import { objDelta } from 'iamfns';
+
+// Single property changed
+objDelta({ a: 1, b: 2, c: 3 }, { a: 1, b: 2, c: 4 });
+// => { c: 4 }
+
+// Multiple properties changed
+objDelta({ a: 1, b: 2, c: 3 }, { a: 10, b: 2, c: 30 });
+// => { a: 10, c: 30 }
+
+// No changes returns empty object
+objDelta({ a: 1, b: 2 }, { a: 1, b: 2 });
+// => {}
+
+// Only compares keys from first object
+objDelta({ a: 1, b: 2 }, { a: 10, b: 2, c: 30 });
+// => { a: 10 }  (c is ignored since it's not in obj1)
+
+// Excludes undefined values from delta
+objDelta({ a: 1, b: 2, c: 3 }, { a: 1, b: undefined, c: 4 });
+// => { c: 4 }
 ```
 
 ---

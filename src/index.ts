@@ -2,6 +2,7 @@ export { afterDecimals } from "./after-decimals";
 export { chunk } from "./chunk";
 export { getKV } from "./get-kv";
 export { inverseObj } from "./inverse-obj";
+export { objDelta } from "./obj-delta";
 export { omitUndefined } from "./omit-undefined";
 export { orderBy } from "./order-by";
 export { take, takeRight } from "./take";
