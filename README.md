@@ -12,6 +12,11 @@ bun add iamfns
 
 - [Numbers](#numbers)
   - [afterDecimals](#afterdecimals)
+  - [adjust](#adjust)
+  - [add](#add)
+  - [subtract](#subtract)
+  - [multiply](#multiply)
+  - [divide](#divide)
 - [Arrays](#arrays)
   - [chunk](#chunk)
   - [orderBy](#orderby)
@@ -63,6 +68,148 @@ afterDecimals('0.00001'); // => 5
 // Scientific notation
 afterDecimals(1e-5);    // => 5
 afterDecimals(1.23e-7); // => 7
+```
+
+---
+
+### `adjust`
+
+Rounds a value to the nearest step increment. Useful for price/quantity adjustments.
+
+```typescript
+function adjust(value: number, step: number | string): number
+```
+
+**Parameters:**
+- `value` - The number to adjust
+- `step` - The step increment (e.g., `0.01` for cents)
+
+**Returns:** The value rounded to the nearest step
+
+**Example:**
+
+```typescript
+import { adjust } from 'iamfns';
+
+adjust(10.123, 0.1);   // => 10.1
+adjust(10.123, 0.01);  // => 10.12
+adjust(10.126, 0.01);  // => 10.13
+adjust(10.6, 1);       // => 11
+adjust(10.4, 1);       // => 10
+
+// String step values
+adjust(10.123, '0.1'); // => 10.1
+```
+
+---
+
+### `add`
+
+Adds two numbers with correct decimal precision, avoiding floating point errors.
+
+```typescript
+function add(a: number, b: number): number
+```
+
+**Parameters:**
+- `a` - First number
+- `b` - Second number
+
+**Returns:** The sum with correct precision
+
+**Example:**
+
+```typescript
+import { add } from 'iamfns';
+
+// Native JS: 0.1 + 0.2 = 0.30000000000000004
+add(0.1, 0.2);   // => 0.3
+add(0.01, 0.02); // => 0.03
+add(0.3, 0.6);   // => 0.9
+add(1, 0.001);   // => 1.001
+```
+
+---
+
+### `subtract`
+
+Subtracts two numbers with correct decimal precision, avoiding floating point errors.
+
+```typescript
+function subtract(a: number, b: number): number
+```
+
+**Parameters:**
+- `a` - Number to subtract from
+- `b` - Number to subtract
+
+**Returns:** The difference with correct precision
+
+**Example:**
+
+```typescript
+import { subtract } from 'iamfns';
+
+// Native JS: 0.3 - 0.1 = 0.19999999999999998
+subtract(0.3, 0.1);   // => 0.2
+subtract(0.03, 0.01); // => 0.02
+subtract(2, 0.001);   // => 1.999
+subtract(0.1, 0.3);   // => -0.2
+```
+
+---
+
+### `multiply`
+
+Multiplies two numbers with correct decimal precision, avoiding floating point errors.
+
+```typescript
+function multiply(a: number, b: number): number
+```
+
+**Parameters:**
+- `a` - First number
+- `b` - Second number
+
+**Returns:** The product with correct precision
+
+**Example:**
+
+```typescript
+import { multiply } from 'iamfns';
+
+// Native JS: 0.1 * 0.2 = 0.020000000000000004
+multiply(0.1, 0.2);  // => 0.02
+multiply(0.3, 0.3);  // => 0.09
+multiply(10, 0.123); // => 1.23
+multiply(2, 0.5);    // => 1
+```
+
+---
+
+### `divide`
+
+Divides two numbers with correct decimal precision, avoiding floating point errors.
+
+```typescript
+function divide(a: number, b: number): number
+```
+
+**Parameters:**
+- `a` - Dividend
+- `b` - Divisor
+
+**Returns:** The quotient with correct precision
+
+**Example:**
+
+```typescript
+import { divide } from 'iamfns';
+
+divide(0.3, 0.1);    // => 3
+divide(0.12, 0.1);   // => 1.2
+divide(1, 0.5);      // => 2
+divide(10.123, 10);  // => 1.012
 ```
 
 ---

@@ -6,5 +6,6 @@ export { objDelta } from "./obj-delta";
 export { omitBy } from "./omit-by";
 export { omitUndefined } from "./omit-undefined";
 export { orderBy } from "./order-by";
+export { adjust, add, subtract, multiply, divide } from "./safe-math";
 export { take, takeRight } from "./take";
 export { tryParse } from "./try-parse";
