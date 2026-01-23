@@ -1,3 +1,4 @@
-export const roundDecimals = (num: number, decimals: number) => {
-  return Math.round(num * 10 ** decimals) / 10 ** decimals;
+export const roundDecimals = (num: number, decimals: number = 8) => {
+  const factor = 10 ** decimals;
+  return Math.round(num * factor) / factor;
 };

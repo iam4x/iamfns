@@ -379,12 +379,12 @@ pFloat('2.5e3'); // => 2500
 Rounds a number to a specified number of decimal places.
 
 ```typescript
-function roundDecimals(num: number, decimals: number): number
+function roundDecimals(num: number, decimals: number = 8): number
 ```
 
 **Parameters:**
 - `num` - The number to round
-- `decimals` - The number of decimal places
+- `decimals` - The number of decimal places (default: 8)
 
 **Returns:** The rounded number
 
