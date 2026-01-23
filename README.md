@@ -10,79 +10,55 @@ bun add iamfns
 
 ## Table of Contents
 
-- [Objects](#objects)
-  - [inverseObj](#inverseobj)
-  - [omitUndefined](#omitundefined)
+- [Numbers](#numbers)
+  - [afterDecimals](#afterdecimals)
 - [Arrays](#arrays)
   - [orderBy](#orderby)
   - [take](#take)
   - [takeRight](#takeright)
+- [Objects](#objects)
+  - [inverseObj](#inverseobj)
+  - [omitUndefined](#omitundefined)
 - [JSON](#json)
   - [tryParse](#tryparse)
 
 ---
 
-## Objects
+## Numbers
 
-### `inverseObj`
+### `afterDecimals`
 
-Inverts the keys and values of an object.
+Returns the number of digits after the decimal point. Handles integers, floats, string inputs, and scientific notation.
 
 ```typescript
-function inverseObj<K extends PropertyKey, V extends PropertyKey>(
-  obj: Record<K, V>
-): Record<V, K>
+function afterDecimals(num: number | string): number
 ```
 
 **Parameters:**
-- `obj` - An object with keys and values that are valid property keys (string, number, or symbol)
+- `num` - A number or string representation of a number
 
-**Returns:** A new object with keys and values swapped
+**Returns:** The count of digits after the decimal point
 
 **Example:**
 
 ```typescript
-import { inverseObj } from 'iamfns';
+import { afterDecimals } from 'iamfns';
 
-inverseObj({ a: 'x', b: 'y', c: 'z' });
-// => { x: 'a', y: 'b', z: 'c' }
+// Integers return 0
+afterDecimals(5);       // => 0
+afterDecimals(100);     // => 0
 
-inverseObj({ one: 1, two: 2, three: 3 });
-// => { 1: 'one', 2: 'two', 3: 'three' }
+// Floats return decimal count
+afterDecimals(5.25);    // => 2
+afterDecimals(3.14159); // => 5
 
-// Note: duplicate values will be overwritten
-inverseObj({ a: 'x', b: 'x', c: 'y' });
-// => { x: 'b', y: 'c' }
-```
+// String inputs
+afterDecimals('5.25');    // => 2
+afterDecimals('0.00001'); // => 5
 
----
-
-### `omitUndefined`
-
-Removes all properties with `undefined` values from an object. Preserves `null`, `false`, `0`, and empty string values.
-
-```typescript
-function omitUndefined<T extends Record<string, any>>(obj: T): OmitUndefined<T>
-```
-
-**Parameters:**
-- `obj` - The source object
-
-**Returns:** A new object with all `undefined` values removed
-
-**Example:**
-
-```typescript
-import { omitUndefined } from 'iamfns';
-
-omitUndefined({ a: 1, b: undefined, c: 'test' });
-// => { a: 1, c: 'test' }
-
-omitUndefined({ a: null, b: undefined, c: 0 });
-// => { a: null, c: 0 }
-
-omitUndefined({ a: false, b: '', c: 0, d: undefined });
-// => { a: false, b: '', c: 0 }
+// Scientific notation
+afterDecimals(1e-5);    // => 5
+afterDecimals(1.23e-7); // => 7
 ```
 
 ---
@@ -202,6 +178,71 @@ takeRight([1, 2, 3, 4, 5], 3);
 
 takeRight(['a', 'b', 'c'], 2);
 // => ['b', 'c']
+```
+
+---
+
+## Objects
+
+### `inverseObj`
+
+Inverts the keys and values of an object.
+
+```typescript
+function inverseObj<K extends PropertyKey, V extends PropertyKey>(
+  obj: Record<K, V>
+): Record<V, K>
+```
+
+**Parameters:**
+- `obj` - An object with keys and values that are valid property keys (string, number, or symbol)
+
+**Returns:** A new object with keys and values swapped
+
+**Example:**
+
+```typescript
+import { inverseObj } from 'iamfns';
+
+inverseObj({ a: 'x', b: 'y', c: 'z' });
+// => { x: 'a', y: 'b', z: 'c' }
+
+inverseObj({ one: 1, two: 2, three: 3 });
+// => { 1: 'one', 2: 'two', 3: 'three' }
+
+// Note: duplicate values will be overwritten
+inverseObj({ a: 'x', b: 'x', c: 'y' });
+// => { x: 'b', y: 'c' }
+```
+
+---
+
+### `omitUndefined`
+
+Removes all properties with `undefined` values from an object. Preserves `null`, `false`, `0`, and empty string values.
+
+```typescript
+function omitUndefined<T extends Record<string, any>>(obj: T): OmitUndefined<T>
+```
+
+**Parameters:**
+- `obj` - The source object
+
+**Returns:** A new object with all `undefined` values removed
+
+**Example:**
+
+```typescript
+import { omitUndefined } from 'iamfns';
+
+omitUndefined({ a: 1, b: undefined, c: 'test' });
+// => { a: 1, c: 'test' }
+
+omitUndefined({ a: null, b: undefined, c: 0 });
+// => { a: null, c: 0 }
+
+omitUndefined({ a: false, b: '', c: 0, d: undefined });
+// => { a: false, b: '', c: 0 }
 ```
 
 ---

@@ -1,3 +1,4 @@
+export { afterDecimals } from "./after-decimals";
 export { inverseObj } from "./inverse-obj";
 export { omitUndefined } from "./omit-undefined";
 export { orderBy } from "./order-by";
