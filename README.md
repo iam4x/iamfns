@@ -35,6 +35,9 @@ bun add iamfns
   - [omitUndefined](#omitundefined)
 - [JSON](#json)
   - [tryParse](#tryparse)
+- [Strings](#strings)
+  - [stringify](#stringify)
+  - [parse](#parse)
 
 ---
 
@@ -773,6 +776,94 @@ tryParse<{ a: number }>('invalid json');
 
 tryParse<number[]>('[1, 2, 3]');
 // => [1, 2, 3]
+```
+
+---
+
+## Strings
+
+### `stringify`
+
+Converts an object to a URL query string. Supports arrays, nested objects, and properly encodes special characters.
+
+```typescript
+function stringify(obj: Record<string, any>): string
+```
+
+**Parameters:**
+- `obj` - The object to convert
+
+**Returns:** A URL-encoded query string
+
+**Example:**
+
+```typescript
+import { stringify } from 'iamfns';
+
+// Simple object
+stringify({ a: 1, b: '2', c: true });
+// => 'a=1&b=2&c=true'
+
+// Arrays (repeated keys)
+stringify({ tags: ['js', 'ts', 'node'] });
+// => 'tags=js&tags=ts&tags=node'
+
+// Nested objects (bracket notation)
+stringify({ user: { name: 'John', age: 30 } });
+// => 'user[name]=John&user[age]=30'
+
+// Null/undefined values (flags)
+stringify({ a: null, b: undefined, c: 'value' });
+// => 'a&b&c=value'
+
+// Special characters are encoded
+stringify({ q: 'hello world' });
+// => 'q=hello%20world'
+```
+
+---
+
+### `parse`
+
+Parses a URL query string into an object. Handles arrays, nested objects with bracket notation, and decodes special characters.
+
+```typescript
+function parse(str: string): Record<string, any>
+```
+
+**Parameters:**
+- `str` - The query string to parse (with or without leading `?`)
+
+**Returns:** The parsed object
+
+**Example:**
+
+```typescript
+import { parse } from 'iamfns';
+
+// Simple query string
+parse('a=1&b=2&c=true');
+// => { a: '1', b: '2', c: 'true' }
+
+// With leading question mark
+parse('?name=John&age=30');
+// => { name: 'John', age: '30' }
+
+// Repeated keys become arrays
+parse('tag=js&tag=ts&tag=node');
+// => { tag: ['js', 'ts', 'node'] }
+
+// Bracket notation becomes nested object
+parse('user[name]=John&user[age]=30');
+// => { user: { name: 'John', age: '30' } }
+
+// Flags (keys without values)
+parse('active&verified&role=admin');
+// => { active: true, verified: true, role: 'admin' }
+
+// Decodes special characters
+parse('q=hello%20world');
+// => { q: 'hello world' }
 ```
 
 ---
