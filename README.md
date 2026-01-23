@@ -30,6 +30,7 @@ bun add iamfns
   - [take](#take)
   - [takeRight](#takeright)
 - [Objects](#objects)
+  - [deepMerge](#deepmerge)
   - [getKV](#getkv)
   - [inverseObj](#inverseobj)
   - [objDelta](#objdelta)
@@ -632,6 +633,56 @@ takeRight(['a', 'b', 'c'], 2);
 ---
 
 ## Objects
+
+### `deepMerge`
+
+Deeply merges two objects. Arrays are replaced (not merged). Does not mutate the original target.
+
+```typescript
+function deepMerge<T, S extends object>(target: T, source?: S): T & S
+```
+
+**Parameters:**
+- `target` - The target object
+- `source` - The source object to merge into target (optional)
+
+**Returns:** A new deeply merged object
+
+**Example:**
+
+```typescript
+import { deepMerge } from 'iamfns';
+
+// Flat objects
+deepMerge({ a: 1, b: 2 }, { b: 3, c: 4 });
+// => { a: 1, b: 3, c: 4 }
+
+// Nested objects
+deepMerge(
+  { user: { name: 'John', age: 30 } },
+  { user: { age: 31, city: 'NYC' } }
+);
+// => { user: { name: 'John', age: 31, city: 'NYC' } }
+
+// Arrays are replaced, not merged
+deepMerge({ tags: [1, 2, 3] }, { tags: [4, 5] });
+// => { tags: [4, 5] }
+
+// Complex nested structures
+deepMerge(
+  { user: { settings: { theme: 'dark' }, tags: ['admin'] } },
+  { user: { settings: { lang: 'en' }, tags: ['user'] } }
+);
+// => { user: { settings: { theme: 'dark', lang: 'en' }, tags: ['user'] } }
+
+// Original target is not mutated
+const target = { a: 1 };
+const result = deepMerge(target, { b: 2 });
+// target is still { a: 1 }
+// result is { a: 1, b: 2 }
+```
+
+---
 
 ### `getKV`
 
