@@ -16,6 +16,7 @@ bun add iamfns
   - [adjust](#adjust)
   - [add](#add)
   - [calcPercent](#calcpercent)
+  - [calcVolatility](#calcvolatility)
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
@@ -221,6 +222,43 @@ calcPercent({ now: 100, start: 0 });   // => Infinity
 
 // Decimal values
 calcPercent({ now: 1.5, start: 1 });   // => 50
+```
+
+---
+
+### `calcVolatility`
+
+Calculates the volatility (standard deviation of percentage changes) for a series of values. Useful for measuring price fluctuations in financial data.
+
+```typescript
+function calcVolatility(values: number[]): number
+```
+
+**Parameters:**
+- `values` - An array of numeric values (e.g., prices over time)
+
+**Returns:** The volatility as standard deviation of percentage changes
+
+**Example:**
+
+```typescript
+import { calcVolatility } from 'iamfns';
+
+// Varying changes = higher volatility
+calcVolatility([100, 110, 100]); // => ~13.49
+
+// Price series with fluctuations
+calcVolatility([100, 105, 102, 108, 106, 110]); // => > 0
+
+// Consistent percentage changes = no volatility
+calcVolatility([100, 200, 400]); // => 0 (doubling each time)
+
+// Constant values = no volatility
+calcVolatility([100, 100, 100]); // => 0
+
+// Need at least 3 values for meaningful result
+calcVolatility([100, 110]); // => 0
+calcVolatility([100]);      // => 0
 ```
 
 ---

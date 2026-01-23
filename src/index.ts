@@ -16,3 +16,4 @@ export { roundDecimals } from "./round-decimals";
 export { adjust, add, subtract, multiply, divide } from "./safe-math";
 export { take, takeRight } from "./take";
 export { tryParse } from "./try-parse";
+export { calcVolatility } from "./volatility";
