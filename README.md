@@ -68,24 +68,24 @@ abbreviateNumber(500);  // => 500
 abbreviateNumber(999);  // => 999
 
 // Thousands (K)
-abbreviateNumber(1000);   // => '1K'
-abbreviateNumber(1500);   // => '1.5K'
-abbreviateNumber(50000);  // => '50K'
+abbreviateNumber(1000);   // => '1k'
+abbreviateNumber(1500);   // => '1.5k'
+abbreviateNumber(50000);  // => '50k'
 
 // Millions (M)
-abbreviateNumber(1000000);  // => '1M'
-abbreviateNumber(1500000);  // => '1.5M'
+abbreviateNumber(1000000);  // => '1m'
+abbreviateNumber(1500000);  // => '1.5m'
 
 // Billions (B)
-abbreviateNumber(1000000000);  // => '1B'
-abbreviateNumber(1500000000);  // => '1.5B'
+abbreviateNumber(1000000000);  // => '1b'
+abbreviateNumber(1500000000);  // => '1.5b'
 
 // Trillions (T)
-abbreviateNumber(1000000000000);  // => '1T'
+abbreviateNumber(1000000000000);  // => '1t'
 
 // Negative numbers
-abbreviateNumber(-1500);    // => '-1.5K'
-abbreviateNumber(-1000000); // => '-1M'
+abbreviateNumber(-1500);    // => '-1.5k'
+abbreviateNumber(-1000000); // => '-1m'
 ```
 
 ---

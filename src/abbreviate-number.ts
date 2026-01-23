@@ -2,14 +2,28 @@ import { pFloat } from "./parse-float";
 import { roundDecimals } from "./round-decimals";
 
 export const abbreviateNumber = (n: number) => {
-  const s = n < 0 ? "-" : "";
-  const a = Math.abs(n);
+  const isNegative = n < 0;
+  const abs = Math.abs(n);
 
-  if (a < 1e3) return roundDecimals(n, 2);
-  if (a >= 1e3 && a < 1e6) return `${s}${pFloat((a / 1e3).toFixed(1))}K`;
-  if (a >= 1e6 && a < 1e9) return `${s}${pFloat((a / 1e6).toFixed(1))}M`;
-  if (a >= 1e9 && a < 1e12) return `${s}${pFloat((a / 1e9).toFixed(1))}B`;
-  if (a >= 1e12) return `${s}${pFloat((a / 1e12).toFixed(1))}T`;
+  let result: number | string;
 
-  return n;
+  if (abs < 1e3) {
+    result = roundDecimals(abs, 2);
+  } else if (abs >= 1e3 && abs < 1e6) {
+    result = `${pFloat((abs / 1e3).toFixed(2))}K`;
+  } else if (abs >= 1e6 && abs < 1e9) {
+    result = `${pFloat((abs / 1e6).toFixed(2))}m`;
+  } else if (abs >= 1e9 && abs < 1e12) {
+    result = `${pFloat((abs / 1e9).toFixed(2))}b`;
+  } else if (abs >= 1e12) {
+    result = `${pFloat((abs / 1e12).toFixed(2))}t`;
+  } else {
+    result = abs;
+  }
+
+  return isNegative
+    ? typeof result === "string"
+      ? `-${result}`
+      : -result
+    : result;
 };
