@@ -17,6 +17,7 @@ bun add iamfns
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
+  - [pFloat](#pfloat)
 - [Arrays](#arrays)
   - [chunk](#chunk)
   - [orderBy](#orderby)
@@ -210,6 +211,50 @@ divide(0.3, 0.1);    // => 3
 divide(0.12, 0.1);   // => 1.2
 divide(1, 0.5);      // => 2
 divide(10.123, 10);  // => 1.012
+```
+
+---
+
+### `pFloat`
+
+Parses a number from a string with support for comma decimal separators (European format). Returns `NaN` for undefined or invalid input.
+
+```typescript
+function pFloat(value?: number | string): number
+```
+
+**Parameters:**
+- `value` - A number or string to parse (optional)
+
+**Returns:** The parsed number, or `NaN` if invalid/undefined
+
+**Example:**
+
+```typescript
+import { pFloat } from 'iamfns';
+
+// Numbers pass through
+pFloat(42);      // => 42
+pFloat(3.14);    // => 3.14
+
+// Standard decimal strings
+pFloat('42');    // => 42
+pFloat('3.14');  // => 3.14
+
+// European format (comma as decimal separator)
+pFloat('3,14');  // => 3.14
+pFloat('10,50'); // => 10.5
+
+// Handles undefined safely
+pFloat(undefined); // => NaN
+
+// Invalid strings
+pFloat('invalid'); // => NaN
+pFloat('');        // => NaN
+
+// Scientific notation
+pFloat('1e6');   // => 1000000
+pFloat('2.5e3'); // => 2500
 ```
 
 ---
