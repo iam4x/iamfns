@@ -20,6 +20,7 @@ bun add iamfns
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
+  - [genId](#genid)
   - [genIntId](#genintid)
   - [pFloat](#pfloat)
   - [roundDecimals](#rounddecimals)
@@ -345,6 +346,32 @@ divide(0.3, 0.1);    // => 3
 divide(0.12, 0.1);   // => 1.2
 divide(1, 0.5);      // => 2
 divide(10.123, 10);  // => 1.012
+```
+
+---
+
+### `genId`
+
+Generates a random 16-character alphanumeric ID using base-36 encoding.
+
+```typescript
+function genId(): string
+```
+
+**Returns:** A 16-character string containing lowercase letters (a-z) and digits (0-9)
+
+**Example:**
+
+```typescript
+import { genId } from 'iamfns';
+
+genId(); // => 'k7x2m9p1q4w8e3r6'
+genId(); // => 'a1b2c3d4e5f6g7h8'
+genId(); // => 'z9y8x7w6v5u4t3s2'
+
+// Use for unique identifiers
+const userId = genId();
+const sessionId = genId();
 ```
 
 ---
