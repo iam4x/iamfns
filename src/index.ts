@@ -2,6 +2,7 @@ export { abbreviateNumber } from "./abbreviate-number";
 export { afterDecimals } from "./after-decimals";
 export { chunk } from "./chunk";
 export { deepMerge } from "./deep-merge";
+export { Emitter } from "./emitter";
 export { genId } from "./gen-id";
 export { genIntId } from "./gen-int-id";
 export { getKV } from "./get-kv";

@@ -44,6 +44,8 @@ bun add iamfns
   - [parse](#parse)
 - [Async](#async)
   - [sleep](#sleep)
+- [Events](#events)
+  - [Emitter](#emitter)
 
 ---
 
@@ -1068,6 +1070,58 @@ for (const item of items) {
   await processItem(item);
   await sleep(100); // Rate limiting
 }
+```
+
+---
+
+## Events
+
+### `Emitter`
+
+A lightweight event emitter class for pub/sub patterns.
+
+```typescript
+class Emitter {
+  on(event: string, listener: (...args: any[]) => void): void
+  emit(event: string, ...args: any[]): void
+}
+```
+
+**Methods:**
+- `on(event, listener)` - Registers a listener for an event
+- `emit(event, ...args)` - Emits an event with optional arguments
+
+**Example:**
+
+```typescript
+import { Emitter } from 'iamfns';
+
+const emitter = new Emitter();
+
+// Register listeners
+emitter.on('user:login', (user) => {
+  console.log(`${user.name} logged in`);
+});
+
+emitter.on('user:login', (user) => {
+  trackAnalytics('login', user.id);
+});
+
+// Emit events
+emitter.emit('user:login', { id: 1, name: 'John' });
+// => "John logged in"
+// => tracks analytics
+
+// Multiple arguments
+emitter.on('order:created', (orderId, items, total) => {
+  console.log(`Order ${orderId}: ${items.length} items, $${total}`);
+});
+
+emitter.emit('order:created', 'ORD-123', ['item1', 'item2'], 99.99);
+// => "Order ORD-123: 2 items, $99.99"
+
+// Safe to emit events with no listeners
+emitter.emit('unknown:event'); // No error
 ```
 
 ---
