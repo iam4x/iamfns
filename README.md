@@ -17,6 +17,7 @@ bun add iamfns
   - [add](#add)
   - [calcPercent](#calcpercent)
   - [calcVolatility](#calcvolatility)
+  - [parseEnvNumber](#parseenvnumber)
   - [subtract](#subtract)
   - [multiply](#multiply)
   - [divide](#divide)
@@ -396,6 +397,39 @@ import { genIntId } from 'iamfns';
 genIntId(); // => 482957
 genIntId(); // => 139482
 genIntId(); // => 7234
+```
+
+---
+
+### `parseEnvNumber`
+
+Parses an environment variable string into a positive integer, with a safe fallback for invalid input.
+
+```typescript
+function parseEnvNumber(value: string | undefined, fallback: number): number
+```
+
+**Parameters:**
+- `value` - The environment value to parse
+- `fallback` - Value returned when input is missing, invalid, or not a positive integer
+
+**Returns:** A positive integer parsed from `value`, or `fallback`
+
+**Example:**
+
+```typescript
+import { parseEnvNumber } from 'iamfns';
+
+// Valid positive integers
+parseEnvNumber('3000', 8080); // => 3000
+parseEnvNumber('42', 10);     // => 42
+
+// Invalid or non-positive inputs use fallback
+parseEnvNumber(undefined, 8080); // => 8080
+parseEnvNumber('', 8080);        // => 8080
+parseEnvNumber('0', 8080);       // => 8080
+parseEnvNumber('-5', 8080);      // => 8080
+parseEnvNumber('abc', 8080);     // => 8080
 ```
 
 ---
