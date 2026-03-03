@@ -43,6 +43,7 @@ bun add iamfns
 - [Strings](#strings)
   - [stringify](#stringify)
   - [parse](#parse)
+  - [truncate](#truncate)
 - [Async](#async)
   - [sleep](#sleep)
 - [Events](#events)
@@ -1059,6 +1060,51 @@ parse('active&verified&role=admin');
 // Decodes special characters
 parse('q=hello%20world');
 // => { q: 'hello world' }
+```
+
+---
+
+### `truncate`
+
+Truncates a string to a maximum length, appending an omission string when the text is cut. Accounts for the omission length so the total result never exceeds `length`.
+
+```typescript
+function truncate(
+  text: string,
+  options: { length: number; omission?: string }
+): string
+```
+
+**Parameters:**
+- `text` - The string to truncate
+- `options.length` - The maximum length of the resulting string (including the omission)
+- `options.omission` - The string appended when truncating (default: `"..."`)
+
+**Returns:** The original string if it fits within `length`, otherwise the truncated string with the omission appended
+
+**Example:**
+
+```typescript
+import { truncate } from 'iamfns';
+
+// Text within limit is returned as-is
+truncate('hello', { length: 10 });         // => 'hello'
+truncate('hello', { length: 5 });          // => 'hello'
+
+// Text exceeding limit is truncated with default omission
+truncate('hello world', { length: 8 });    // => 'hello...'
+
+// Custom omission string
+truncate('hello world', { length: 8, omission: '…' }); // => 'hello w…'
+
+// Empty omission truncates without any suffix
+truncate('hello world', { length: 5, omission: '' });   // => 'hello'
+
+// When length is shorter than the omission itself
+truncate('hello world', { length: 2 });    // => '..'
+
+// Empty string is returned as-is
+truncate('', { length: 5 });               // => ''
 ```
 
 ---
