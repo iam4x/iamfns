@@ -4,5 +4,5 @@ export const omitBy = <T extends Record<string, any>>(
 ) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([key, value]) => !filter(key, value)),
-  ) as T;
+  ) as Partial<T>;
 };

@@ -1,8 +1,8 @@
-export const omit = <T extends Record<string, any>>(
+export const omit = <T extends Record<string, any>, K extends keyof T>(
   obj: T,
-  keys: (keyof T)[],
-): Omit<T, keyof T> => {
+  keys: K[],
+): Omit<T, K> => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !keys.includes(key as keyof T)),
-  ) as Omit<T, keyof T>;
+    Object.entries(obj).filter(([key]) => !keys.includes(key as K)),
+  ) as Omit<T, K>;
 };
