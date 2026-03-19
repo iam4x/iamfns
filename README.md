@@ -31,6 +31,7 @@ bun add iamfns
   - [orderBy](#orderby)
   - [take](#take)
   - [takeRight](#takeright)
+  - [uniq](#uniq)
 - [Objects](#objects)
   - [deepMerge](#deepmerge)
   - [getKV](#getkv)
@@ -694,6 +695,36 @@ takeRight([1, 2, 3, 4, 5], 3);
 
 takeRight(['a', 'b', 'c'], 2);
 // => ['b', 'c']
+```
+
+---
+
+### `uniq`
+
+Removes duplicate values from an array, preserving the first occurrence of each value. Supports arrays of strings, numbers, and booleans.
+
+```typescript
+function uniq<T extends string | number | boolean>(arr: T[]): T[]
+```
+
+**Parameters:**
+- `arr` - The array to deduplicate
+
+**Returns:** A new array with duplicate values removed
+
+**Example:**
+
+```typescript
+import { uniq } from 'iamfns';
+
+uniq([1, 2, 3, 4, 5]);
+// => [1, 2, 3, 4, 5]
+
+uniq(['a', 'b', 'c', 'a', 'd']);
+// => ['a', 'b', 'c', 'd']
+
+uniq([true, false, true, false]);
+// => [true, false]
 ```
 
 ---

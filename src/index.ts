@@ -22,4 +22,5 @@ export { sleep } from "./sleep";
 export { take, takeRight } from "./take";
 export { truncate } from "./truncate";
 export { tryParse } from "./try-parse";
+export { uniq } from "./uniq";
 export { calcVolatility } from "./volatility";
