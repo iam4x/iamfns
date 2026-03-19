@@ -32,6 +32,7 @@ bun add iamfns
   - [take](#take)
   - [takeRight](#takeright)
   - [uniq](#uniq)
+  - [uniqBy](#uniqby)
 - [Objects](#objects)
   - [deepMerge](#deepmerge)
   - [getKV](#getkv)
@@ -725,6 +726,48 @@ uniq(['a', 'b', 'c', 'a', 'd']);
 
 uniq([true, false, true, false]);
 // => [true, false]
+```
+
+---
+
+### `uniqBy`
+
+Removes duplicate values from an array of objects based on a key or iteratee function, preserving the first occurrence of each unique value.
+
+```typescript
+function uniqBy<T, K extends keyof T>(
+  arr: T[],
+  key: K | ((item: T) => unknown),
+): T[]
+```
+
+**Parameters:**
+- `arr` - The array to deduplicate
+- `key` - A property key or a function that returns the value to compare uniqueness by
+
+**Returns:** A new array with duplicate entries removed, keeping the first occurrence
+
+**Example:**
+
+```typescript
+import { uniqBy } from 'iamfns';
+
+// Deduplicate by object key
+uniqBy([{ id: 1 }, { id: 2 }, { id: 1 }], 'id');
+// => [{ id: 1 }, { id: 2 }]
+
+// Deduplicate using an iteratee function
+uniqBy([{ id: 1 }, { id: 2 }, { id: 1 }], (item) => item.id);
+// => [{ id: 1 }, { id: 2 }]
+
+// Deduplicate by a computed value
+const users = [
+  { name: 'Alice', role: 'admin' },
+  { name: 'Bob', role: 'user' },
+  { name: 'Charlie', role: 'admin' },
+];
+uniqBy(users, 'role');
+// => [{ name: 'Alice', role: 'admin' }, { name: 'Bob', role: 'user' }]
 ```
 
 ---
