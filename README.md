@@ -38,6 +38,7 @@ bun add iamfns
   - [getKV](#getkv)
   - [inverseObj](#inverseobj)
   - [objDelta](#objdelta)
+  - [omit](#omit)
   - [omitBy](#omitby)
   - [omitUndefined](#omitundefined)
 - [JSON](#json)
@@ -941,6 +942,44 @@ objDelta({ a: 1, b: 2 }, { a: 10, b: 2, c: 30 });
 // Excludes undefined values from delta
 objDelta({ a: 1, b: 2, c: 3 }, { a: 1, b: undefined, c: 4 });
 // => { c: 4 }
+```
+
+---
+
+### `omit`
+
+Creates a new object with the specified keys removed.
+
+```typescript
+function omit<T extends Record<string, any>>(obj: T, keys: (keyof T)[]): Omit<T, keyof T>
+```
+
+**Parameters:**
+- `obj` - The source object
+- `keys` - An array of keys to omit from the object
+
+**Returns:** A new object without the specified keys
+
+**Example:**
+
+```typescript
+import { omit } from 'iamfns';
+
+// Omit a single key
+omit({ a: 1, b: 2, c: 3 }, ['b']);
+// => { a: 1, c: 3 }
+
+// Omit multiple keys
+omit({ a: 1, b: 2, c: 3 }, ['a', 'c']);
+// => { b: 2 }
+
+// Empty keys array returns a copy of the object
+omit({ a: 1, b: 2, c: 3 }, []);
+// => { a: 1, b: 2, c: 3 }
+
+// Omit all keys returns an empty object
+omit({ a: 1, b: 2, c: 3 }, ['a', 'b', 'c']);
+// => {}
 ```
 
 ---

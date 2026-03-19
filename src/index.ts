@@ -11,6 +11,7 @@ export { last } from "./last";
 export { objDelta } from "./obj-delta";
 export { omitBy } from "./omit-by";
 export { omitUndefined } from "./omit-undefined";
+export { omit } from "./omit";
 export { orderBy } from "./order-by";
 export { parseEnvNumber } from "./parse-env-number";
 export { pFloat } from "./parse-float";
