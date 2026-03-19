@@ -947,7 +947,7 @@ objDelta({ a: 1, b: 2, c: 3 }, { a: 1, b: undefined, c: 4 });
 
 ### `omitBy`
 
-Filters an object's entries based on a predicate function. Keeps only the entries where the filter returns `true`.
+Filters an object's entries based on a predicate function. Omits the entries where the filter returns `true`.
 
 ```typescript
 function omitBy<T extends Record<string, any>>(
@@ -958,32 +958,32 @@ function omitBy<T extends Record<string, any>>(
 
 **Parameters:**
 - `obj` - The source object
-- `filter` - A predicate function that receives the key and value, returns `true` to keep the entry
+- `filter` - A predicate function that receives the key and value, returns `true` to omit the entry
 
-**Returns:** A new object with only the entries that match the filter
+**Returns:** A new object without the entries that match the filter
 
 **Example:**
 
 ```typescript
 import { omitBy } from 'iamfns';
 
-// Keep only entries with value greater than 1
+// Omit entries with value greater than 1
 omitBy({ a: 1, b: 2, c: 3 }, (_key, value) => value > 1);
-// => { b: 2, c: 3 }
+// => { a: 1 }
 
-// Keep only entries with specific keys
-omitBy({ a: 1, b: 2, c: 3 }, (key) => key !== 'b');
+// Omit a specific key
+omitBy({ a: 1, b: 2, c: 3 }, (key) => key === 'b');
 // => { a: 1, c: 3 }
 
-// Keep only truthy values
-omitBy({ a: 0, b: '', c: 'hello', d: 42 }, (_key, value) => Boolean(value));
+// Omit falsy values
+omitBy({ a: 0, b: '', c: 'hello', d: 42 }, (_key, value) => !value);
 // => { c: 'hello', d: 42 }
 
-// Filter by both key and value
+// Omit by both key and value
 omitBy({ name: 'John', age: 30, active: true }, (key, value) =>
   typeof value === 'string' || key === 'active'
 );
-// => { name: 'John', active: true }
+// => { age: 30 }
 ```
 
 ---
