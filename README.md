@@ -1276,12 +1276,14 @@ A lightweight event emitter class for pub/sub patterns.
 ```typescript
 class Emitter {
   on(event: string, listener: (...args: any[]) => void): void
+  off(event: string, listener?: (...args: any[]) => void): void
   emit(event: string, ...args: any[]): void
 }
 ```
 
 **Methods:**
 - `on(event, listener)` - Registers a listener for an event
+- `off(event, listener?)` - Removes a specific listener (or all listeners for the event)
 - `emit(event, ...args)` - Emits an event with optional arguments
 
 **Example:**
@@ -1292,9 +1294,11 @@ import { Emitter } from 'iamfns';
 const emitter = new Emitter();
 
 // Register listeners
-emitter.on('user:login', (user) => {
+const onLogin = (user) => {
   console.log(`${user.name} logged in`);
-});
+};
+
+emitter.on('user:login', onLogin);
 
 emitter.on('user:login', (user) => {
   trackAnalytics('login', user.id);
@@ -1304,6 +1308,12 @@ emitter.on('user:login', (user) => {
 emitter.emit('user:login', { id: 1, name: 'John' });
 // => "John logged in"
 // => tracks analytics
+
+// Remove a specific listener
+emitter.off('user:login', onLogin);
+
+// Remove all listeners for an event
+emitter.off('user:login');
 
 // Multiple arguments
 emitter.on('order:created', (orderId, items, total) => {
