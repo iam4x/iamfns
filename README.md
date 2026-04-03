@@ -49,6 +49,7 @@ bun add iamfns
   - [truncate](#truncate)
 - [Async](#async)
   - [sleep](#sleep)
+  - [retry](#retry)
 - [Events](#events)
   - [Emitter](#emitter)
 
@@ -1263,6 +1264,47 @@ for (const item of items) {
   await processItem(item);
   await sleep(100); // Rate limiting
 }
+```
+
+---
+
+### `retry`
+
+Runs an async function and retries it on failure. After each failure, waits before the next attempt using linear backoff: `100ms × attemptIndex` (100ms before the second try, 200ms before the third, and so on). When the remaining retry budget reaches zero, the last error is rethrown.
+
+```typescript
+function retry<T>(
+  fn: () => Promise<T>,
+  retries?: number,
+  tryCount?: number,
+): Promise<T>
+```
+
+**Parameters:**
+- `fn` - A function that returns a promise (invoked on each attempt)
+- `retries` - How many times to retry after a failure (default: `3`). With the default, you get up to **4** attempts in total (initial try plus 3 retries)
+- `tryCount` - Internal counter used for backoff timing; you normally omit this and use the default `1`. It increments on each recursive retry and multiplies the delay (`100 * tryCount` ms)
+
+**Returns:** The resolved value of `fn` on success
+
+**Throws:** The error from the final failed attempt when retries are exhausted
+
+**Example:**
+
+```typescript
+import { retry } from 'iamfns';
+
+// Default: up to 4 attempts, 100ms / 200ms / 300ms delays between failures
+await retry(() => fetch('/api/data').then((r) => {
+  if (!r.ok) throw new Error('HTTP error');
+  return r.json();
+}));
+
+// Fewer retries (1 initial + 2 retries = 3 attempts)
+await retry(() => unstableCall(), 2);
+
+// Usually you only pass fn and optionally retries; do not pass tryCount unless
+// you are extending the helper.
 ```
 
 ---

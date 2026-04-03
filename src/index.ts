@@ -17,6 +17,7 @@ export { parseEnvNumber } from "./parse-env-number";
 export { pFloat } from "./parse-float";
 export { calcPercent } from "./percentage";
 export { stringify, parse } from "./query-string";
+export { retry } from "./retry";
 export { roundDecimals } from "./round-decimals";
 export { adjust, add, subtract, multiply, divide } from "./safe-math";
 export { sleep } from "./sleep";
